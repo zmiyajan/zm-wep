@@ -1,0 +1,25 @@
+name: Deploy to Firebase
+on:
+  push:
+    branches:
+      - main  # replace this with your default branch if it's not 'main'
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Repo
+        uses: actions/checkout@v2
+
+      - name: Install Dependencies
+        run: npm install
+
+      - name: Build
+        run: npm run build  # replace this with your build command if different
+
+      - name: Deploy to Firebase
+        uses: wzieba/Firebase-Distribution-Github-Action@v1
+        with:
+          appId: ${{secrets.FIREBASE_APP_ID}}
+          token: ${{secrets.FIREBASE_AUTH_TOKEN}}
